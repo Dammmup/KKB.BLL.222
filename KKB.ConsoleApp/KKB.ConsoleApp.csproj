@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B064C558-DCF5-4443-9CAE-753506DF8A73}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KKB.BLL</RootNamespace>
-    <AssemblyName>KKB.BLL</AssemblyName>
+    <ProjectGuid>{96D63CD5-FC2A-49DD-995A-D83FE04EAE1F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>KKB.ConsoleApp</RootNamespace>
+    <AssemblyName>KKB.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,10 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ServiceClient.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KKB.BLL\KKB.BLL.csproj">
+      <Project>{b064c558-dcf5-4443-9cae-753506df8a73}</Project>
+      <Name>KKB.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KKB.DAL\KKB.DAL.csproj">
       <Project>{e6c4b6ba-7dae-4951-b167-0f11c543df8c}</Project>
       <Name>KKB.DAL</Name>

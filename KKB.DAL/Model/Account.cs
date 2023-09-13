@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KKB.BLL.Model
+namespace KKB.DAL.Model
 {
     public class Account
     {
