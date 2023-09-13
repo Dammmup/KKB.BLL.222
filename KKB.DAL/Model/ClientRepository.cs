@@ -46,5 +46,22 @@ namespace KKB.DAL.Model
 
             return client;
         }
+
+        /// <summary>
+        /// Метод который создает пользователя
+        /// </summary>
+        /// <param name="client">Данные пользователя</param>
+        /// <returns></returns>
+        public bool CreateClient(Client client)
+        {
+            using (var db = new LiteDatabase(connectionString))
+            {
+                var clients = db.GetCollection<Client>("Client");
+
+                clients.Insert(client);
+            }
+
+            return true;
+        }
     }
 }

@@ -23,7 +23,12 @@ namespace KKB.BLL.Model
         /// <returns></returns>
         public bool RegsterClient(Client client)
         {
+            //if(repo.GetClientData(client.Email, client.Password)==null)
+            //{
 
+            //}
+
+            repo.CreateClient(client);
 
             return true;
         }
