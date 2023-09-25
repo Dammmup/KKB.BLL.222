@@ -96,5 +96,47 @@ namespace KKB.DAL.Model
             }
             return result;
         }
+        public AccountReturnResult GetAccountById(int accountId)
+        {
+            AccountReturnResult result = new AccountReturnResult();
+            result.Accounts = null;
+
+            try
+            {
+                using (var db = new LiteDatabase(connectionString))
+                {
+                    var accounts = db.GetCollection<Account>("Accounts")
+                 .FindById(accountId);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.isError = true;
+                result.Exception = ex;
+            }
+            return result;
+        }
+        public AccountReturnResult Pay(Account account)
+        {
+            AccountReturnResult result = new AccountReturnResult();
+            result.Accounts = null;
+
+            try
+            {
+                using (var db = new LiteDatabase(connectionString))
+                {
+                    var accounts = db.GetCollection<Account>("Accounts");
+                    accounts.Update(account);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result.isError = true;
+                result.Exception = ex;
+            }
+            return result;
+        }
     }
 }

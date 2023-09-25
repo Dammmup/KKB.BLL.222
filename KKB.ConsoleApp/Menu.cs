@@ -2,17 +2,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Cache;
 
 namespace KKB.ConsoleApp
 {
+    
     public static class Menu
     {
-        public class Random
+        static string path = "";
+
+        static Menu()
         {
-            public static int rand = new Random();
-
-
+            path = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
         public static void FirstMenu()
         {
@@ -45,6 +47,7 @@ namespace KKB.ConsoleApp
                     }
                 case 2:
                     Console.Clear();
+                    Console.WriteLine("Register user");
                     if (menuAction.Register())
                     {
                         Console.Clear();
@@ -70,24 +73,27 @@ namespace KKB.ConsoleApp
             {
                 case "yes":
                     {
+                        Random rand = new Random();
                         AccountDTO account = new AccountDTO();
                         account.Balance = 0;
                         account.Currence = 398;
                         account.CreateDate = DateTime.Now;
                         account.ExpireDate = account.CreateDate.AddDays(15);
                         account.TypeCard = 1;
-                        account.IBAN = "KZ" + Rand.Next(100, 999);
+                        account.IBAN = "KZ" + rand.Next(100, 999);
+                        account.ClientId=client.Id;
+
+                        ServiceAccount serviceAccount = new ServiceAccount(path);
+                        var result= serviceAccount.CreateAccountClient(account);
+                        
+                        if(!result.result)
+                            Console.WriteLine(result.message);
+                        else
+                            SecondMenu(client);
                         break;
                     }
             }
         }
-        public (string message, List<AccountDTO> accounts) GetAllAcounts(int clientid)
-        {
-            var result = repo
-        }
-        public void CreateAccountClient(AccountDTO account)
-        {
-            var result = Reques
-        }
+       
     }
 }

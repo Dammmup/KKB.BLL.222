@@ -17,6 +17,7 @@ namespace KKB.BLL
                 cfg =>
                 {
                     cfg.CreateMap<Client, ClientDTO>().ReverseMap();
+                    cfg.CreateMap<Account,AccountDTO>().ReverseMap();
                 });
         }
     }
