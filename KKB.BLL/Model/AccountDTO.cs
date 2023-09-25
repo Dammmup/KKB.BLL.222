@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KKB.DAL.Model
+namespace KKB.BLL.Model
 {
-    public class Account
+    public class AccountDTO
     {
         public int Id { get; set; }
-        public int Clientid { get; set; }
         public double Balance { get; set; }
         public int Currence { get; set; }
         public double Limit { get; set; }
@@ -18,7 +17,7 @@ namespace KKB.DAL.Model
         public bool Status { get; set; } = true;
         public int TypeCard { get; set; } //debit - credit
         public string IBAN { get; set; } //KZ05403542054C854
-
+        public int Clientid { get; set; }
 
         public double DaysRemain
         {

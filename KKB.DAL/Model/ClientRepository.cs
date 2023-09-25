@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace KKB.DAL.Model
 {
     public class ClientRepository
@@ -12,20 +11,40 @@ namespace KKB.DAL.Model
         readonly string connectionString = "";
         public ClientRepository(string connectionString)
         {
-            this.connectionString = connectionString;   
+            this.connectionString = connectionString;
         }
 
-        public List<Client> GetAllClients()
+        public List<Client> GetAllClients(out string message)
         {
-            List<Client> clients = new List<Client>();
+            List<Client> clients = null;
+            message = "";
 
-            using (var db = new LiteDatabase(connectionString))
+            try
             {
-                clients = db.GetCollection<Client>("Client")
-                    .FindAll()
-                    .ToList();
-
-            }//Dispose()
+                using (var db = new LiteDatabase(connectionString))
+                {
+                    clients = db.GetCollection<Client>("Client")
+                  .FindAll()
+                  .ToList();
+                }
+            }
+            catch (ArgumentNullException ae)
+            {
+                message = ae.Message;
+            }
+            catch
+               when (string.IsNullOrWhiteSpace(connectionString))
+            {
+                message = "Строка подключения к БД не корректна";
+            }
+            catch (Exception myError)
+            {
+                message = myError.Message;
+            }
+            finally
+            {
+                // db.Dispose();
+            }
 
             return clients;
         }
@@ -38,13 +57,26 @@ namespace KKB.DAL.Model
         /// <returns></returns>
         public Client GetClientData(string Email, string Password)
         {
-            List<Client> data = GetAllClients();
+            try
+            {
+                string message = "";
+                List<Client> data = GetAllClients(out message);
 
-            var client = data
-                .FirstOrDefault(a=> a.Email == Email 
-                && a.Password == Password);
+                if (!string.IsNullOrWhiteSpace(message))
+                    throw new ArgumentException(message);
 
-            return client;
+                var client = data
+                    .FirstOrDefault(a => a.Email == Email
+                    && a.Password == Password);
+
+                return client;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         /// <summary>
@@ -52,16 +84,38 @@ namespace KKB.DAL.Model
         /// </summary>
         /// <param name="client">Данные пользователя</param>
         /// <returns></returns>
-        public bool CreateClient(Client client)
+        public Client CreateClient(Client client)
         {
-            using (var db = new LiteDatabase(connectionString))
+            try
             {
-                var clients = db.GetCollection<Client>("Client");
+                using (var db = new LiteDatabase(connectionString))
+                {
+                    var clients = db.GetCollection<Client>("Client");
 
-                clients.Insert(client);
+                    clients.Insert(client);
+                }
             }
-
-            return true;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return client;
+        }
+        public bool UpdateClient(Client client)
+        {
+            try
+            {
+                using (var db = new LiteDatabase(connectionString))
+                {
+                    var clients = db.GetCollection<Client>("Client");
+                    clients.Update(client);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

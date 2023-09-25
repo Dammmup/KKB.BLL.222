@@ -1,16 +1,18 @@
-﻿using KKB.DAL.Model;
+﻿using KKB.BLL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using KKB.DAL.Model;
 
 namespace KKB.BLL.Model
 {
     public class ServiceClient
     {
-        private ClientRepository repo = null;
-
+        private readonly ClientRepository repo = null;
+        private readonly IMapper iMapper;
         public ServiceClient(string connectionString)
         {
             repo = new ClientRepository(connectionString);
@@ -21,15 +23,17 @@ namespace KKB.BLL.Model
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public bool RegsterClient(Client client)
+        public bool RegisterClient(ClientDTO client)
         {
-            //if(repo.GetClientData(client.Email, client.Password)==null)
-            //{
+            try
+            {
+                repo.CreateClient(iMapper.Map<Client>(client));
+            }
+            catch
+            {
 
-            //}
-
-            repo.CreateClient(client);
-
+                throw new ArgumentException("ВОЗНИКЛА ОШИБКА ПОВТОРИТЕ ПОЗЖЕ");
+            }
             return true;
         }
 
@@ -39,9 +43,21 @@ namespace KKB.BLL.Model
         /// <param name="Email"></param>
         /// <param name="Password"></param>
         /// <returns></returns>
-        public Client AuthorizeClient(string Email, string Password)
+        public ClientDTO AuthorizeClient(string Email, string Password)
         {
-            return repo.GetClientData(Email, Password);
+            ClientDTO client = null;
+            try
+            {
+                var _client = repo.GetClientData(Email, Password);
+                _client = iMapper.Map<Client>(client);
+
+            }
+            catch
+            {
+                throw new ArgumentException("Во3никла ошибка, попробуйте позже");
+            }
+
+            return client;
         }
 
         /// <summary>
@@ -49,10 +65,16 @@ namespace KKB.BLL.Model
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public bool UpdateClient(Client client)
+        public bool UpdateClient(ClientDTO client)
         {
-
-            return true;
+            try
+            {
+                return repo.UpdateClient(iMapper.Map<Client>(client));
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 
