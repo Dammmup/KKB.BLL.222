@@ -1,5 +1,4 @@
 ﻿using KKB.BLL.Model;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -88,13 +87,33 @@ namespace KKB.ConsoleApp
             ServiceAccount service = new ServiceAccount(path);
             var data = service.GetAllAccounts(clientid);
             Console.WriteLine(": {0}", data.message);
-            foreach (AccountDTO account in data.accounts)
+           
+                foreach (AccountDTO account in data.accounts)
+                {
+                    Console.WriteLine("{0} {1}\t{2} {3}",
+                        account.Id,
+                        account.IBAN,
+                        account.Balance,
+                        account.Currence);
+                }
+            Console.WriteLine("---------------------");
+            Console.WriteLine("Choose bill: ");
+            int seletedAccount=Int32.Parse(Console.ReadLine());
+            var accunt = service.GetAccount(seletedAccount);
+            if(accunt != null)
             {
-                Console.WriteLine("{0} {1}\t{2} {3}", account.Id,
-                    account.IBAN,
-                    account.Balance,
-                    account.Currence);
+                Console.Clear();
+                Console.WriteLine("{0}",accunt.IBAN);
+                Console.WriteLine("{0:dd.MM.yyyy}",accunt.CreateDate);
+                Console.WriteLine("balance {0}",accunt.Balance);
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("Choose operation:");
+                Console.WriteLine("1. Pay Money");
+                Console.WriteLine("2. Pay User");
+                Console.WriteLine("3. Bill");
+
             }
+            
         }
     }
 }

@@ -16,9 +16,28 @@ namespace KKB.ConsoleApp
         {
             Menu.FirstMenu();
             Console.ReadKey();
+
+            AccountDTO acc = new AccountDTO(1, 1000);
+            ShortAccount sAcc = (ShortAccount)acc;
+
+            StringBuilder sb = new StringBuilder("Hello world!");
+            sb.IndexOf('!');
+
+            int index = StringBuilderExtension.IndexOf(sb, '!');
         }
+     
 
 
-
+    }
+    public static class StringBuilderExtension
+    {
+        public static Int32 IndexOf(this StringBuilder sb,Char value)
+        {
+            for(int i=0;i<sb.Length;i++)
+            {
+                if (sb[i] == value) return i;
+            }
+            return -1;
+        }
     }
 }

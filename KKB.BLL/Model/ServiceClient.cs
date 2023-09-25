@@ -16,6 +16,7 @@ namespace KKB.BLL.Model
         public ServiceClient(string connectionString)
         {
             repo = new ClientRepository(connectionString);
+            iMapper = BLLSettings.Init().CreateMapper();
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace KKB.BLL.Model
             {
                 repo.CreateClient(iMapper.Map<Client>(client));
             }
-            catch
+            catch (Exception ex)
             {
 
                 throw new ArgumentException("ВОЗНИКЛА ОШИБКА ПОВТОРИТЕ ПОЗЖЕ");

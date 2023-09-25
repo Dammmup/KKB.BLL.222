@@ -53,6 +53,7 @@
     <Compile Include="Model\ClientDTO.cs" />
     <Compile Include="Model\ServiceAccount.cs" />
     <Compile Include="Model\ServiceClient.cs" />
+    <Compile Include="Model\ShortAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
