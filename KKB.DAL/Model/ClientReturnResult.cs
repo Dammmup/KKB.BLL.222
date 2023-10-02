@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace KKB.DAL.Model
 {
-    public class ClientReturnResult
+
+    public class ReturnResult<T>
     {
+        public T Data { get; set; }
+        public List<T> Datas { get; set; }
         public Exception Exception { get; set; }
-        public Client Client { get; set; }
-        public bool isError { get; set; }
+        public bool isError { get; set; } = false;
     }
-    public class AccountReturnResult
-    {
-        public Exception Exception { get; set; }
-        public Account Account { get; set; }
-        public List<Account> Accounts { get; set; }
-        public bool isError { get; set; }
-    }
+
 }

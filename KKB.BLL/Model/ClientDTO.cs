@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 namespace KKB.BLL.Model
 {
-    public class ClientDTO
+     public class ClientDTO:IClientDTOShort,IClientDTOData
     {
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
@@ -56,11 +56,27 @@ namespace KKB.BLL.Model
         }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public int Gender { get; set; }
 
         public string Password { get; set; }
 
         public List<AddressDTO> Address { get; set; }
         public List<AccountDTO> Account { get; set; }
+    }
+    public interface IClientDTOShort
+    {
+         string Name { get; set; }
+      
+         string SurName { get; set; }
+    
+         string MiddleName { get; set; }
+        int Id { get; set; }
+    }
+    public interface IClientDTOData
+    {
+       
+        string PhoneNumber { get; set; }
+        string Email { get; set; }
+
+        string Password { get; set; }
     }
 }

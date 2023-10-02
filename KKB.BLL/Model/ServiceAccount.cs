@@ -6,24 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AutoMapper;
+using KKB.DAL;
 
 namespace KKB.BLL.Model
 {
     public class ServiceAccount
     {
-        private readonly AccountRepository repo = null;
+        private readonly IRepository<Account> repo = null;
         private readonly IMapper iMapper;
 
         public ServiceAccount(string connectionstring)
         {
-            repo = new AccountRepository(connectionstring);
+            repo = new IRepository<Account>(connectionstring);
             iMapper = BLLSettings.Init().CreateMapper();
         }
 
         public (string message, List<AccountDTO> accounts) GetAllAccounts(int clientid)
         {
-            var result = repo.GetAccounts(clientid);
-            return ((result.isError==true)?result.Exception.Message:"", iMapper.Map<List<AccountDTO>>(result.Accounts));
+
+            var result = repo.Get();
+               
+            return ((result.isError==true)?result.Exception.Message:"",
+                iMapper.Map<List<AccountDTO>>(result.Datas.Where(w => w.Clientid.Equals(clientid)))); //возвращает метод, определенного клиента
         }
 
 
@@ -47,7 +51,7 @@ namespace KKB.BLL.Model
         }
         public(bool result,string message) CreateAccountClient(AccountDTO account)
         {
-            var result=repo.CreateAccount(iMapper.Map<Account>(account));
+            var result=repo.Create(iMapper.Map<Account>(account));
             return (result.isError,result.Exception!=null?result.Exception.Message:"");
         }
         /// <summary>
@@ -57,7 +61,7 @@ namespace KKB.BLL.Model
         /// <returns></returns>
         public AccountDTO GetAccount(int accountId)
         {
-            return iMapper.Map<AccountDTO>(repo.GetAccountById(accountId));
+            return iMapper.Map<AccountDTO>(repo.GetData(accountId));
         }
 
     }

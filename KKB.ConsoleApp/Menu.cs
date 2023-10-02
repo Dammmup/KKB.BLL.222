@@ -32,7 +32,7 @@ namespace KKB.ConsoleApp
                 case 1:
                     {
                         Console.Clear();
-                        ClientDTO clent = menuAction.Auth();
+                        IClientDTOShort clent = menuAction.Auth();
 
                         if (clent == null)
                         {
@@ -59,11 +59,11 @@ namespace KKB.ConsoleApp
                     break;
             }
         }
-        public static void SecondMenu(ClientDTO client)
+        public static void SecondMenu(IClientDTOShort client)
         {
             MenuAction menuAction = new MenuAction();
             Console.Clear();
-            Console.WriteLine("Добро пожаловать {0}", client.Shortname);
+            Console.WriteLine("Добро пожаловать {0}", client.Name);
             Console.WriteLine("Ваши счета: ...");
             menuAction.ShowAccount(client.Id);
             Console.WriteLine("");
