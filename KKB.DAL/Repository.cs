@@ -20,7 +20,7 @@ namespace KKB.DAL
             ReturnResult<T> result = new ReturnResult<T>();
             try
             {
-                using (var db = new LiteDatabase(connectionString))
+                using (var db = new LiteDatabase(connectionString)) //{ } - поле using использует метод Dispose();
                 {
                     result.Datas = db.GetCollection<T>(typeof(T).Name)
                         .FindAll()

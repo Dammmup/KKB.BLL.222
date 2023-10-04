@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 using KKB.DAL;
+using KKB.DAL.Interfaces;
 
 namespace KKB.BLL.Model
 {
-    public class ServiceAccount
+    public class ServiceAccount:Service<Account>
     {
-        private readonly IRepository<Account> repo = null;
-        private readonly IMapper iMapper;
+        //private readonly IRepository<Account> repo = null;
+        //private readonly IMapper iMapper;
 
-        public ServiceAccount(string connectionstring)
+        public ServiceAccount(string connectionstring):base(connectionstring)
         {
-            repo = new IRepository<Account>(connectionstring);
-            iMapper = BLLSettings.Init().CreateMapper();
+          
         }
 
         public (string message, List<AccountDTO> accounts) GetAllAccounts(int clientid)
@@ -51,7 +51,7 @@ namespace KKB.BLL.Model
         }
         public(bool result,string message) CreateAccountClient(AccountDTO account)
         {
-            var result=repo.Create(iMapper.Map<Account>(account));
+            var result=repo.Create(iMapper.Map<Client>(account));
             return (result.isError,result.Exception!=null?result.Exception.Message:"");
         }
         /// <summary>

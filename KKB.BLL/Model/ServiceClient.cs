@@ -11,16 +11,10 @@ using KKB.DAL.Interfaces;
 
 namespace KKB.BLL.Model
 {
-    public class ServiceClient
+    public class ServiceClient:Service<Client>
     {
-        private readonly IRepository<Client> repo;
-        private readonly IMapper iMapper=null;
-        public ServiceClient(string connectionString)
-        {
-            repo = new Repository<Client>(connectionString);
-            iMapper = BLLSettings.Init().CreateMapper();
-        }
-
+        
+        public ServiceClient(string connectionStrings) : base(connectionStrings) { }
         /// <summary>
         /// Регестрация
         /// </summary>

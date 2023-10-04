@@ -29,6 +29,7 @@ namespace KKB.ConsoleApp
 
 
     }
+
     public static class StringBuilderExtension
     {
         public static Int32 IndexOf(this StringBuilder sb,Char value)
