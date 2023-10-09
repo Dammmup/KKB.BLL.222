@@ -12,12 +12,12 @@ namespace KKB.BLL.Model
 {
     public abstract class Service<T>
     {
-        protected readonly IRepository<Client> repo=null;
+        protected readonly IRepository<T> repo=null;
         protected readonly IMapper iMapper = null;
         public Service() { }
         public Service(string connectionString)
         {
-            repo = new Repository<Client>(connectionString);
+            repo = new Repository<T>(connectionString);
             iMapper = new MapperConfiguration(
                 cfg =>
                 {

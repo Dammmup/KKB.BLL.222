@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLSettings.cs" />
+    <Compile Include="Enum\Currency.cs" />
     <Compile Include="Model\AccountDTO.cs" />
     <Compile Include="Model\AdressDTO.cs" />
     <Compile Include="Model\ClientDTO.cs" />

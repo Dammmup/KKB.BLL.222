@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using KKB.DAL;
 using KKB.DAL.Interfaces;
+using KKB.BLL.Enum;
 
 namespace KKB.BLL.Model
 {
@@ -29,6 +30,15 @@ namespace KKB.BLL.Model
             return ((result.isError==true)?result.Exception.Message:"",
                 iMapper.Map<List<AccountDTO>>(result.Datas.Where(w => w.Clientid.Equals(clientid)))); //возвращает метод, определенного клиента
         }
+        public (string message, List<AccountDTO> accounts) GetAllAccounts(int clientid, Currency currency)
+        {
+
+            var result = repo.Get();
+
+
+            return ((result.isError == true) ? result.Exception.Message : "",
+                iMapper.Map<List<AccountDTO>>(result.Datas.Where(w => w.Clientid.Equals(clientid) && w.Currence == (int)currency))); //возвращает метод, определенного клиента
+        }
 
 
         public double GetAccountBalance(int clientId)
@@ -41,17 +51,10 @@ namespace KKB.BLL.Model
             return totalBalance.Balance;
         }
 
-        public static void Example01()
-        {
-            AccountDTO acc1 = new AccountDTO(1, 1000);
-            AccountDTO acc2=new AccountDTO(2, 1000);
-            AccountDTO acc3=new AccountDTO(3, 1000);
-            var result = acc1 + acc2;
-            var result2=acc2 + acc3;
-        }
+     
         public(bool result,string message) CreateAccountClient(AccountDTO account)
         {
-            var result=repo.Create(iMapper.Map<Client>(account));
+            var result=repo.Create(iMapper.Map<Account>(account));
             return (result.isError,result.Exception!=null?result.Exception.Message:"");
         }
         /// <summary>

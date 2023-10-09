@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KKB.BLL.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace KKB.BLL.Model
     {
         public AccountDTO()
         { }
-            public AccountDTO(int Currence,double Balance)
+            public AccountDTO(Currency Currence,double Balance)
         {
             this.Currence = Currence;
             this.Balance = Balance;
@@ -19,7 +20,7 @@ namespace KKB.BLL.Model
 
         public int ClientId { get; set; }
         public double Balance { get; set; }
-        public int Currence { get; set; }
+        public Currency Currence { get; set; }
 
         public static explicit operator ShortAccount(AccountDTO acc)
         {
@@ -56,10 +57,10 @@ namespace KKB.BLL.Model
 
         public override string ToString()
         {
-            return string.Format("{0}. {1} {2}",Id, IBAN, Balance);
+            return string.Format("{0}. {1} {2} ({3})", Id, IBAN, Balance);
         }
         public static explicit operator string(AccountDTO acc)
-        { return string.Format("{0}. {1} {2}", acc.Id, acc.IBAN, acc.Balance); }
+        { return string.Format("{0}. {1} {2} ({3})", acc.Id, acc.IBAN, acc.Balance,(int)acc.Currence); }
 
         public double Limit { get; set; }
         public DateTime CreateDate { get; set; }

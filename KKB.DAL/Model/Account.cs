@@ -16,7 +16,7 @@ namespace KKB.DAL.Model
         public DateTime CreateDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public bool Status { get; set; } = true;
-        public int TypeCard { get; set; } //debit - credit
+        public int? TypeCard { get; set; } //debit - credit  (int)TypeCard
         public string IBAN { get; set; } //KZ05403542054C854
 
 

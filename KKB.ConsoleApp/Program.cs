@@ -17,8 +17,8 @@ namespace KKB.ConsoleApp
             Menu.FirstMenu();
             Console.ReadKey();
 
-            AccountDTO acc = new AccountDTO(1, 1000);
-            ShortAccount sAcc = (ShortAccount)acc;
+
+          
 
             StringBuilder sb = new StringBuilder("Hello world!");
             sb.IndexOf('!');

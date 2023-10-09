@@ -1,4 +1,5 @@
-﻿using KKB.BLL.Model;
+﻿using KKB.BLL.Enum;
+using KKB.BLL.Model;
 
 using System;
 using System.Collections.Generic;
@@ -73,10 +74,17 @@ namespace KKB.ConsoleApp
             {
                 case "yes":
                     {
+                        Console.WriteLine("Choose currence: ");
+                        Currency curr;
+                        for(curr=Currency.kzt;curr<=Currency.eur;curr++ )
+                        {
+                            Console.WriteLine("-> {0}. {1}",(int)curr,curr);
+                        }
+                        int selectCurrency = Int32.Parse(Console.ReadLine());
                         Random rand = new Random();
                         AccountDTO account = new AccountDTO();
                         account.Balance = 0;
-                        account.Currence = 398;
+                        account.Currence = (Currency)selectCurrency;                     /*(Currency)Enum.Parse(typeof(Currency),"kzt";*/
                         account.CreateDate = DateTime.Now;
                         account.ExpireDate = account.CreateDate.AddDays(15);
                         account.TypeCard = 1;
